@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 
-// Create schema for alternatives, child of questionSchema
-var alternativesSchema = new mongoose.Schema({
+//Create schema for choices, child of questionSchema
+var choicesSchema = new mongoose.Schema({
 	text: String,
 	votes: Number
 });
 
 // Create schema for question
 var questionSchema = new mongoose.Schema({
-	question: String,
-	alternatives: [alternativesSchema]
+	title: String,
+	choices: [choicesSchema]
 });
 
 // Create model

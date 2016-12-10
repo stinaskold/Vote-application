@@ -1,0 +1,25 @@
+<ion-view>
+  <ion-header-bar class="bar-stable">
+    <button class="button button-icon" ng-click="toggleQuestions()">
+      <i class="icon ion-navicon"></i>
+    </button>
+    <h1 class="title">Rösta</h1>
+  </ion-header-bar>
+  <ion-content>
+    <h2>{{activeQuestion.title}}</h2>
+    <form ng-submit="vote(formData.chosenChoice, activeQuestion)">
+      <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
+      <div class="button-div">
+      <button type="submit" class="button button-positive app-button">Rösta!</button>
+      </div>
+    </form>
+
+    <h2>Resultat:</h2>
+    <ul class="result-list">
+      <li ng-repeat="choice in activeQuestion.choices" class="result-list-item">{{choice.text}} har {{choice.votes}} röster.</li>
+    </ul>
+ </ion-content>
+</ion-view>
+
+<!-- ng-model="choice" -->
+<!-- <input type='checkbox' ng-init='checkStatus=false' ng-model='checkStatus' ng-click='doIfChecked(checkStatus)'> -->

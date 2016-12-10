@@ -1,12 +1,17 @@
 app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, request, $ionicSideMenuDelegate) {
-
   //$scope.activeQuestion = 'Fråga 1';
-  $scope.newChoices = [
-    { text: 'Alternativ 1' },
-    { text: 'Alternativ 2' },
-    { text: 'Alternativ 3' },
-    { text: 'Alternativ 4' }
-  ];
+  $scope.newChoices = [{},{}];
+  for (var i=0;i<$scope.newChoices.length;i++) {
+    $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
+  }
+
+  $scope.addChoice = function() {
+  // push an empty object onto the array
+  $scope.newChoices.push({});
+    for (var i=0;i<$scope.newChoices.length;i++) {
+      $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
+    }
+  }
 
   // Get questions from database
   request.getQuestions(function(response) {
@@ -30,9 +35,14 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
 
   // Called when the form is submitted
   $scope.createQuestion = function(question) {
+    var choicesArray = [];
     for (var i in question.choices) {
-      console.log(question.choices[i].text);
+      var choicesObj = {text : question.choices[i].text, votes: 0};
+      console.log(choicesObj);
+      choicesArray.push(choicesObj);
     }
+    console.log(choicesArray);
+    question.choices = choicesArray;
     // for (var i = 0; i < question.choices.length; i++) {
     //   console.log(question.choices[i].text);
     // }
@@ -43,11 +53,17 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
     // });
     socket.emit('new-question', question);
     console.log('Här kommer en ny fråga');
+    // question.title = "";
+    // question.choices = {};
     $scope.questionModal.hide();
   };
 
   // Open our new task modal
   $scope.newQuestion = function() {
+    $scope.newChoices = [{},{}];
+    for (var i=0;i<$scope.newChoices.length;i++) {
+      $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
+    }
     $scope.questionModal.show();
   };
 
@@ -68,11 +84,31 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
   };
 
 socket.on('message', function (message) {
-      //alert('The server has a message for you: ' + message);
-  });
+  console.log('The server has a message for you: ' + message);
+});
 
-socket.on('read-questions', function (questions) {
-  console.log(questions);
+socket.on('vote-updated', function (updatedQuestion) {
+    for (var i=0;i<$scope.questions.length;i++) {
+      if ($scope.questions[i].title === updatedQuestion.title) {
+        $scope.questions[i].choices = updatedQuestion.choices;
+      }
+    }
+
+
+
+  // console.log();
+  // $('.result-list').empty();
+  // for (var i=0;i<updatedQuestion.choices.length;i++) {
+  //   $('.result-list').append('<li class="result-list-item">' + updatedQuestion.choices[i].text + ' har ' + updatedQuestion.choices[i].votes +' röster.</li>');
+  // }
+  //
+  // console.log('Rösten uppdaterad' + updatedQuestion.title);
+
+  // Lägg till ny text node med antal röster
+  // Hur få det att uppdateras i alla fönster
+
+  // Get questions from database
+  //$scope.questions.push(updatedQuestion);
 });
 
 
@@ -84,8 +120,17 @@ socket.on('read-questions', function (questions) {
   //initializing messages array
  this.messages=[{content: 'hej'},{content: 'svej'}];
 
- $scope.vote =function(data) {
-    socket.emit('vote', data);
+ $scope.formData = {};
+
+ $scope.vote =function(chosenChoice, question) {
+    console.log(chosenChoice);
+    for (var i=0;i<question.choices.length;i++) {
+      if (question.choices[i].text === chosenChoice) {
+        console.log('Du har röstat på ' + question.choices[i].text);
+        socket.emit('vote', question, question.choices[i]);
+      }
+    }
+    //socket.emit('vote', chosenChoice);
     //alert('Hoppla');
   }
 

@@ -34,9 +34,22 @@ io.on('connection', function (socket) {
   // });
 
   socket.emit('message', 'You are connected!');
-  socket.on('vote', function (data) {
-    console.log('Din röst ' + data);
+
+  socket.on('vote', function (question, chosenChoice) {
+    console.log(question.title);
+    console.log('Din röst: ' + chosenChoice._id);
+    var questionId = question._id;
+    var choiceId = chosenChoice._id;
+    Question.findOneAndUpdate({ '_id': questionId, 'choices._id': choiceId }, { $inc: {'choices.$.votes': 1} }, {new: true}, function(err, updatedQuestion) {
+      if (err) {
+        //return res.status(500).json({ err: err.message });
+      }
+      io.emit('vote-updated', updatedQuestion);
+      console.log('Rösten har uppdaterats');
+      //res.json({ 'series': series, message: 'Series updated' });
+    });
   });
+
   // socket.on('new-question', function (question) {
   //   console.log('Frågan är ' + question.title);
   //   var newQuestion = new Question({

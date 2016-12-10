@@ -1,1 +1,42 @@
-/* Empty. Add your own CSS if you like */
+h2 {
+  font-size: 1.5em;
+  padding: 10px;
+  padding-top: 20px;
+  text-align: center;
+}
+.question-choice {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.item-radio .item-content {
+  padding: 16px;
+}
+.item-radio .radio-icon {
+  padding: 10px;
+}
+.app-button {
+  width:80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 4px;
+}
+.button-div {
+  width: 100%;
+  text-align: center;
+}
+.result-list-item {
+  text-align: center;
+}
+.add-question, .add-choice {
+  text-align: center;
+  background-color: #ccc;
+}
+.button-div .add-choice-button {
+  margin-top: 20px;
+}
+.add-choice-button .icon:before {
+  font-size: 16px;
+  margin-left: 5px;
+}

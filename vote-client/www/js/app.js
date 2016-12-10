@@ -27,9 +27,9 @@ var app = angular.module('vote-app', ['ionic','btford.socket-io'])
    {
 
      $stateProvider
-     .state('start', {
+     .state('vote', {
        url: "/",
-       templateUrl: "templates/start.html"
+       templateUrl: "templates/vote.html"
      })
      .state('question', {
        url: "/question",

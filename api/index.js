@@ -24,10 +24,10 @@ router.post('/question', function(req, res) {
   });
 });
 
-// // update question
+// update question
 // router.put('/question/:id', function(req, res) {
 //   var id = req.params.id;
-//   var series = req.body;
+//   var question = req.body;
 //   if (series && series._id !== id) {
 //     return res.status(500).json({ err: "Ids don't match!" });
 //   }

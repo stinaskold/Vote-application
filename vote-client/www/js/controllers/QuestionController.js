@@ -1,9 +1,9 @@
 app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, request, $ionicSideMenuDelegate) {
   //$scope.activeQuestion = 'Fråga 1';
-  $scope.newChoices = [{},{}];
-  for (var i=0;i<$scope.newChoices.length;i++) {
-    $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
-  }
+  $scope.newChoices = [];
+  // for (var i=0;i<$scope.newChoices.length;i++) {
+  //   $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
+  // }
 
   $scope.addChoice = function() {
   // push an empty object onto the array
@@ -12,6 +12,13 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
       $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
     }
   }
+
+  $scope.removeChoice = function() {
+  // remove last object from array
+    if ($scope.newChoices.length > 2)
+      $scope.newChoices.pop();
+  }
+
 
   // Get questions from database
   request.getQuestions(function(response) {
@@ -26,11 +33,23 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
 
 
   // Create and load the Modal
-  $ionicModal.fromTemplateUrl('new-question.html', function(modal) {
-    $scope.questionModal = modal;
-  }, {
+  $ionicModal.fromTemplateUrl('../templates/modals/new-question.html',
+  {
+    id: 'question',
     scope: $scope,
     animation: 'slide-in-up'
+  }).then(function(modal) {
+      $scope.questionModal = modal;
+  });
+
+  // Create and load the Modal
+  $ionicModal.fromTemplateUrl('../templates/modals/new-vote.html',
+  {
+    id: 'vote',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+      $scope.voteModal = modal;
   });
 
   // Called when the form is submitted
@@ -58,19 +77,52 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
     $scope.questionModal.hide();
   };
 
-  // Open our new task modal
-  $scope.newQuestion = function() {
-    $scope.newChoices = [{},{}];
-    for (var i=0;i<$scope.newChoices.length;i++) {
-      $scope.newChoices[i].text = 'Alternativ ' + (parseFloat([i]) + 1);
+  // // Open new question modal
+  // $scope.newQuestion = function() {
+  //   for(var i=0; i < 2; i++) {
+  //     $scope.addChoice();
+  //   }
+  //   $scope.questionModal.show();
+  // };
+  //
+  // // Open new vote modal
+  // $scope.newVote = function() {
+  //   $scope.voteModal.show();
+  // };
+  //
+  // // Close the new task modal
+  // $scope.closeNewQuestion = function() {
+  //   $scope.questionModal.hide();
+  // };
+  //
+  // // Close the new task modal
+  // $scope.closeNewVote = function() {
+  //   $scope.voteModal.hide();
+  // };
+
+  $scope.openModal = function(id) {
+  if (id == 'question') {
+    for(var i=0; i < 2; i++) {
+      $scope.addChoice();
     }
     $scope.questionModal.show();
-  };
+  }
+  else {
+    $scope.voteModal.show();
+  }
+};
 
-  // Close the new task modal
-  $scope.closeNewQuestion = function() {
-    $scope.questionModal.hide();
-  };
+$scope.closeModal = function(id) {
+  if (id == 'question') $scope.questionModal.hide();
+  else $scope.voteModal.hide();
+};
+
+
+  $scope.$on('$destroy', function() {
+  console.log('Destroying modals...');
+  $scope.questionModal.remove();
+  $scope.voteModal.remove();
+  });
 
   $scope.toggleQuestions = function() {
   $ionicSideMenuDelegate.toggleLeft();
@@ -79,6 +131,7 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
   // Select question
   $scope.selectQuestion = function(question, index) {
     $scope.activeQuestion = question;
+    $scope.activeChoice = "";
     console.log(question.choices);
     $ionicSideMenuDelegate.toggleLeft(false);
   };
@@ -93,9 +146,7 @@ socket.on('vote-updated', function (updatedQuestion) {
         $scope.questions[i].choices = updatedQuestion.choices;
       }
     }
-
-
-
+  $scope.voteModal.hide();
   // console.log();
   // $('.result-list').empty();
   // for (var i=0;i<updatedQuestion.choices.length;i++) {
@@ -127,6 +178,7 @@ socket.on('vote-updated', function (updatedQuestion) {
     for (var i=0;i<question.choices.length;i++) {
       if (question.choices[i].text === chosenChoice) {
         console.log('Du har röstat på ' + question.choices[i].text);
+        $scope.activeChoice = question.choices[i].text;
         socket.emit('vote', question, question.choices[i]);
       }
     }

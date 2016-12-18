@@ -1,0 +1,20 @@
+<div class="modal">
+
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary bar-stable">
+    <h1 class="title">Rösta</h1>
+    <button class="button button-clear button-positive" ng-click="closeModal('vote')">Stäng</button>
+  </ion-header-bar>
+
+  <!-- Modal content area -->
+  <ion-content>
+    <h2 class="title">{{activeQuestion.title}}</h2>
+    <form ng-submit="vote(formData.chosenChoice, activeQuestion)">
+      <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
+      <div class="button-div">
+      <button type="submit" class="button button-positive app-button">Rösta!</button>
+      </div>
+    </form>
+
+  </ion-content>
+</div>

@@ -1,0 +1,34 @@
+<div class="modal">
+
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary bar-stable">
+    <h1 class="title">Ny fråga</h1>
+    <button class="button button-clear button-positive" ng-click="closeModal('question')">Stäng</button>
+  </ion-header-bar>
+
+  <!-- Modal content area -->
+  <ion-content>
+
+    <form ng-submit="createQuestion(question)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Fråga" ng-model="question.title" class="add-question">
+        </label>
+        <label class="item item-input" ng-repeat="newChoice in newChoices">
+          <input type="text" placeholder="{{newChoice.text}}" ng-model="question.choices[$index].text" class="add-choice">
+        </label>
+        <div class="button-div">
+          <button type="button" class="button add-choice-button" ng-click="addChoice()">Lägg till alternativ <i class="icon icon ion-plus"></i></button>
+        </div>
+        <div class="button-div">
+          <button type="button" class="button add-choice-button" ng-click="removeChoice()">Ta bort alternativ <i class="icon icon ion-minus"></i></button>
+        </div>
+      </div>
+      <div class="button-div">
+        <button type="submit" class="button button-positive app-button">Skapa fråga</button>
+      </div>
+    </form>
+
+  </ion-content>
+
+</div>

@@ -50,17 +50,9 @@ io.on('connection', function (socket) {
     });
   });
 
-  // socket.on('new-question', function (question) {
-  //   console.log('Frågan är ' + question.title);
-  //   var newQuestion = new Question({
-  //       title: question.title
-  //   });
-  //   newQuestion.save(function (err) {
-  //     if (err) return handleError(err);
-  //     console.log('Question saved to database');
-  //   })
-  //
-  // });
+  socket.on('new-question', function (question) {
+    io.emit('question-added', question);
+  });
 
 });
 

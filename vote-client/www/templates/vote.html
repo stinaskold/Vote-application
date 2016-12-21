@@ -1,27 +1,35 @@
 <ion-view>
-  <ion-header-bar class="bar-stable">
-    <button class="button button-icon" ng-click="toggleQuestions()">
-      <i class="icon ion-navicon"></i>
-    </button>
-    <h1 class="title">Rösta</h1>
-    <button class="button button-icon ion-plus" ng-click="openModal('vote')">
-    </button>
-  </ion-header-bar>
+  <div ng-hide="activeQuestion">
+    <ion-header-bar class="bar-dark">
+      <button class="button button-icon" ng-click="toggleQuestions()">
+        <i class="icon ion-navicon"></i>
+      </button>
+      <h1 class="title">Start</h1>
+    </ion-header-bar>
+    <ion-content>
+      <h2>Vote-app</h2>
+      <button class="button button-positive app-button center" ng-click="openModal('question')">Skapa ny fråga</button>
+      <button class="button button-positive app-button center" ng-click="toggleQuestions()">Se alla frågor</button>
+   </ion-content>
+ </div>
 
-  <ion-content>
-    <!-- <h2>{{activeQuestion.title}}</h2>
-    <form ng-submit="vote(formData.chosenChoice, activeQuestion)">
-      <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
-      <div class="button-div">
-      <button type="submit" class="button button-positive app-button">Rösta!</button>
-      </div>
-    </form> -->
-    <h2>Resultat:</h2>
-    <ul class="result-list">
-      <li ng-repeat="choice in activeQuestion.choices" class="result-list-item">{{choice.text}} har {{choice.votes}} röster.</li>
-    </ul>
-    <p ng-show="activeChoice" class="your-vote">Din röst: {{activeChoice}}.</p>
- </ion-content>
+  <div ng-show="activeQuestion">
+    <ion-header-bar class="bar-dark">
+      <button class="button button-icon" ng-click="toggleQuestions()">
+        <i class="icon ion-navicon"></i>
+      </button>
+      <h1 class="title">Rösta</h1>
+      <button class="button button-icon ion-plus" ng-click="openModal('vote')">
+      </button>
+    </ion-header-bar>
+    <ion-content>
+      <h2>Resultat:</h2>
+      <ul class="result-list">
+        <li ng-repeat="choice in activeQuestion.choices" class="result-list-item">{{choice.text}} har {{choice.votes}} röster.</li>
+      </ul>
+      <p ng-show="activeChoice" class="your-vote">Din röst: {{activeChoice}}.</p>
+   </ion-content>
+ </div>
 </ion-view>
 
 <!-- ng-model="choice" -->

@@ -70,11 +70,12 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
     // $scope.questions.push({
     //   title: question.title
     // });
-    socket.emit('new-question', question);
     console.log('Här kommer en ny fråga');
     // question.title = "";
     // question.choices = {};
     $scope.questionModal.hide();
+    //$scope.openModal();
+    //socket.emit('new-question', question);
   };
 
   // // Open new question modal
@@ -147,22 +148,11 @@ socket.on('vote-updated', function (updatedQuestion) {
       }
     }
   $scope.voteModal.hide();
-  // console.log();
-  // $('.result-list').empty();
-  // for (var i=0;i<updatedQuestion.choices.length;i++) {
-  //   $('.result-list').append('<li class="result-list-item">' + updatedQuestion.choices[i].text + ' har ' + updatedQuestion.choices[i].votes +' röster.</li>');
-  // }
-  //
-  // console.log('Rösten uppdaterad' + updatedQuestion.title);
-
-  // Lägg till ny text node med antal röster
-  // Hur få det att uppdateras i alla fönster
-
-  // Get questions from database
-  //$scope.questions.push(updatedQuestion);
 });
 
-
+// socket.on('question-added', function(question) {
+//   $scope.questions.push(question);
+// });
 
   // socket.on('test', function (socket) {
   //   console.log('test client');

@@ -8,8 +8,8 @@
     </ion-header-bar>
     <ion-content>
       <h2>Vote-app</h2>
-      <button class="button button-positive app-button center" ng-click="openModal('question')">Skapa ny fråga</button>
-      <button class="button button-positive app-button center" ng-click="toggleQuestions()">Se alla frågor</button>
+      <button class="button app-button" ng-click="openModal('question')">Skapa ny fråga</button>
+      <button class="button app-button" ng-click="toggleQuestions()">Se alla frågor</button>
    </ion-content>
  </div>
 
@@ -23,6 +23,13 @@
       </button>
     </ion-header-bar>
     <ion-content>
+      <h2 class="title">{{activeQuestion.title}}</h2><button class="button" ng-click="updateQuestion(activeQuestion)">Redigera</button><button class="button" ng-click="deleteQuestion(activeQuestion)">Ta bort</button>
+      <form ng-submit="vote(formData.chosenChoice, activeQuestion)">
+        <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" icon="icon ion-ios-checkmark-outline" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
+        <div class="button-div">
+        <button type="submit" class="button button-positive app-button">Rösta!</button>
+        </div>
+      </form>
       <h2>Resultat:</h2>
       <ul class="result-list">
         <li ng-repeat="choice in activeQuestion.choices" class="result-list-item">{{choice.text}} har {{choice.votes}} röster.</li>

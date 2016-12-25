@@ -66,7 +66,7 @@
         <!-- our list and list items -->
         <ion-list>
           <ion-item ng-repeat="question in questions" ng-click="selectQuestion(question, $index)" ng-class="{active: activeQuestion == question}">
-            {{question.title}}
+            {{question.title}}<i class="icon icon ion-plus"></i>
           </ion-item>
         </ion-list>
       </ion-content>

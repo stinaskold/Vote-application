@@ -10,7 +10,8 @@ var sh = require('shelljs');
 var paths = {
   sass: ['./scss/**/*.scss']
 };
-
+gulp.task('serve:before', ['default','watch']);
+gulp.task('run:before', ['default']);
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {

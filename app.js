@@ -54,7 +54,20 @@ io.on('connection', function (socket) {
     io.emit('question-added', question);
   });
 
+  router.post('/question', function(req, res) {
+    var newQuestion = req.body;
+    Question.create(newQuestion, function(err, result) {
+      if (err) {
+        return res.status(500).json({ err: err.message });
+      }
+      //res.json({ 'question': newQuestion, message: 'Question added to db' });
+      socket.emit('question-added', result);
+    });
+  });
+
 });
+
+
 
 
 http.listen(3000, function(){

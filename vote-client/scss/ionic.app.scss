@@ -3,6 +3,7 @@ To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
+*/
 
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
@@ -12,8 +13,27 @@ $balanced:                        #33cd5f !default;
 $energized:                       #ffc900 !default;
 $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
+$dark:                            #373737 !default;
+
+$base-background-color:           #2f2f2f !default;
+$base-color:                      #fff !default;
+
+$secondary-color:                 #c5c5c5;
+
+$custom-dark-border:              #5f5f5f;
+$button-dark-border:              $base-background-color;
+
+// $bar-dark-bg:                     rgba($button-dark-bg, $bar-transparency) !default;
+// $bar-dark-text:                   $button-dark-text !default;
+// $bar-dark-border:                 $button-dark-border !default;
+// $bar-dark-active-bg:              $button-dark-active-bg !default;
+// $bar-dark-active-border:          $button-dark-active-border !default;
+//
+$item-default-bg:                 $base-background-color !default;
+$item-default-border:             $custom-dark-border !default;
+$item-default-text:               $secondary-color !default;
+$item-default-active-bg:          $dark !default;
+$item-default-active-border:      $custom-dark-border !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -21,3 +41,82 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+
+h2 {
+  font-size: 1.5em;
+  padding: 10px;
+  padding-top: 20px;
+  padding-left: 5%;
+}
+
+// Header-bar
+.bar-dark .button {
+  color: $secondary-color;
+}
+.bar.bar-dark .title {
+  color: $secondary-color;
+}
+.button.button-icon.ion-plus:before {
+  font-size: 24px;
+}
+// Side menu - questions
+.question-item .ion-chevron-right {
+  position: absolute;
+  right: 10px;
+}
+.item:first-child {
+  border-top: none;
+}
+
+// Buttons
+.app-button {
+  width:90%;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 4px;
+  display: block;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: $light;
+}
+.button.active, .button.activated {
+  background-color: #000;
+}
+
+.question-choice {
+  //text-align: center;
+  //width: 80%;
+  //margin: 0 auto;
+  //margin-bottom: 10px;
+}
+.item-radio .item-content {
+  padding: 16px;
+  padding-left: 5%;
+}
+.item-radio .radio-icon {
+  padding: 10px;
+}
+.item-radio input:checked + .radio-content .item-content {
+  background-color: $dark;
+}
+.result-list-item {
+  padding-left: 5%;
+}
+.your-vote {
+  margin-top: 20px;
+  padding-left: 5%;
+}
+
+
+// Side menu
+// .item {
+//   background-color: $base-background-color;
+//   color: $secondary-color;
+//   border-color: #5f5f5f;
+// }
+// .item.active, .item.activated, .item-complex.active .item-content,
+// .item-complex.activated .item-content, .item .item-content.active,
+// .item .item-content.activated {
+//   background-color: $dark;
+//   border-color: #5f5f5f;
+// }

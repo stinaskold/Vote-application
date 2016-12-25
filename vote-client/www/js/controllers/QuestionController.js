@@ -78,6 +78,13 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
     //socket.emit('new-question', question);
   };
 
+  $scope.updateQuestion = function(question) {
+
+  };
+  $scope.deleteQuestion = function(question) {
+
+  };
+
   // // Open new question modal
   // $scope.newQuestion = function() {
   //   for(var i=0; i < 2; i++) {
@@ -149,6 +156,12 @@ socket.on('vote-updated', function (updatedQuestion) {
     }
   $scope.voteModal.hide();
 });
+
+socket.on('question-added', function (newQuestion) {
+  console.log('Den nya frågan är:' + newQuestion);
+  $scope.questions.push(newQuestion);
+});
+
 
 // socket.on('question-added', function(question) {
 //   $scope.questions.push(question);

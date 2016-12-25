@@ -16,8 +16,9 @@
       }
     </script>-->
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"> -->
+    <link href="css/ionic.app.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -65,8 +66,8 @@
      <ion-content>
         <!-- our list and list items -->
         <ion-list>
-          <ion-item ng-repeat="question in questions" ng-click="selectQuestion(question, $index)" ng-class="{active: activeQuestion == question}">
-            {{question.title}}
+          <ion-item ng-repeat="question in questions" ng-click="selectQuestion(question, $index)" ng-class="{active: activeQuestion == question}" class="question-item">
+            {{question.title}}<i class="icon icon ion-chevron-right"></i>
           </ion-item>
         </ion-list>
       </ion-content>

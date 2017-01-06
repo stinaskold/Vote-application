@@ -14,18 +14,16 @@
         <label class="item item-input">
           <input type="text" placeholder="Fråga" ng-model="question.title" class="add-question">
         </label>
-        <label class="item item-input" ng-repeat="newChoice in newChoices">
-          <input type="text" placeholder="{{newChoice.text}}" ng-model="question.choices[$index].text" class="add-choice">
+        <label class="item item-input" ng-repeat="choice in newChoices track by $index">
+          <input type="text" placeholder="{{choice.text}}" ng-model="question.choices[$index].text" class="add-choice">
         </label>
-        <div class="button-div">
-          <button type="button" class="button add-choice-button" ng-click="addChoice()">Lägg till alternativ <i class="icon icon ion-plus"></i></button>
-        </div>
-        <div class="button-div">
-          <button type="button" class="button add-choice-button" ng-click="removeChoice()">Ta bort alternativ <i class="icon icon ion-minus"></i></button>
+        <div class="button-div choice-buttons">
+          <button type="button" class="button add-choice-button" ng-click="addChoice(newChoices, 'new')">Lägg till alternativ <i class="icon icon ion-plus"></i></button>
+          <button type="button" class="button remove-choice-button" ng-click="removeChoice(newChoices)">Ta bort alternativ <i class="icon icon ion-minus"></i></button>
         </div>
       </div>
       <div class="button-div">
-        <button type="submit" class="button button-positive app-button">Skapa fråga</button>
+        <button type="submit" class="button form-button app-button">Skapa fråga</button>
       </div>
     </form>
 

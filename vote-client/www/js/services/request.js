@@ -7,9 +7,9 @@ app.service('request', function($http) {
 
   this.updateQuestion = function(question) {
     if(!question._id) {
-      $http.post('/api/question', question).then(function() { 
-      question.title = "";
-      question.choices = {};
+      $http.post('/api/question', question).then(function() {
+      //question.title = "";
+      //question.choices = {};
       //window.location = '/';
       });
     } else {
@@ -19,14 +19,14 @@ app.service('request', function($http) {
     }
   };
 
-  // this.deleteSeries = function(series) {
-  //   if (!series._id) {
-  //     console.log("Id not found");
-  //   }
-  //   return $http.delete('/api/series/' + series._id).then(function() {
-  //     console.log("I deleted " + series.title);
-  //   });
-  // };
+  this.deleteQuestion = function(question) {
+    if (!question._id) {
+      console.log("Id not found");
+    }
+    return $http.delete('/api/question/' + question._id).then(function() {
+      console.log("I deleted " + question.title);
+    });
+  };
 
 
 });

@@ -5,14 +5,14 @@ var Question = require('../models/question');
 var router = express.Router();
 
 // get questions
-router.get('/get-questions', function(req, res) {
-  Question.find({}, function(err, question) {
-    if (err) {
-      return res.status(500).json({ message: err.message });
-    }
-    res.json({ question: question });
-  });
-});
+// router.get('/get-questions', function(req, res) {
+//   Question.find({}, function(err, question) {
+//     if (err) {
+//       return res.status(500).json({ message: err.message });
+//     }
+//     res.json({ question: question });
+//   });
+// });
 
 // add new question
 // router.post('/question', function(req, res) {

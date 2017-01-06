@@ -4,12 +4,17 @@
       <button class="button button-icon" ng-click="toggleQuestions()">
         <i class="icon ion-navicon"></i>
       </button>
-      <h1 class="title">Start</h1>
+      <h1 class="title"></h1>
     </ion-header-bar>
     <ion-content>
-      <h2>Vote-app</h2>
-      <button class="button app-button" ng-click="openModal('question')">Skapa ny fråga</button>
-      <button class="button app-button" ng-click="toggleQuestions()">Se alla frågor</button>
+      <h2 class="logo">Let's vote</h2>
+      <div class="div-logo">
+        <i class="icon icon-logo icon ion-chatbubbles"></i>
+      </div>
+      <div class="start-buttons">
+        <button class="button app-button" ng-click="openModal('question')">Skapa ny fråga</button>
+        <button class="button app-button" ng-click="toggleQuestions()">Se alla frågor</button>
+      </div>
    </ion-content>
  </div>
 
@@ -19,22 +24,26 @@
         <i class="icon ion-navicon"></i>
       </button>
       <h1 class="title">Rösta</h1>
-      <button class="button button-icon ion-plus" ng-click="openModal('vote')">
-      </button>
+      <!-- <button class="button button-icon ion-plus" ng-click="openModal('vote')">
+      </button> -->
     </ion-header-bar>
     <ion-content>
-      <h2 class="title">{{activeQuestion.title}}</h2><button class="button" ng-click="updateQuestion(activeQuestion)">Redigera</button><button class="button" ng-click="deleteQuestion(activeQuestion)">Ta bort</button>
-      <form ng-submit="vote(formData.chosenChoice, activeQuestion)">
-        <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" icon="icon ion-ios-checkmark-outline" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
+      <h2 class="title">{{activeQuestion.title}}</h2>
+      <div class="edit-delete">
+        <a href="" class="edit" ng-click="openModal('update',activeQuestion)">Redigera</a>
+        <a href="" class="delete" ng-click="deleteQuestion(activeQuestion)">Ta bort</a>
+      </div>
+      <form ng-submit="vote(formData.chosenChoice, activeQuestion)" class="form-choices">
+        <ion-radio ng-repeat="choice in activeQuestion.choices" ng-model="formData.chosenChoice" icon="icon ion-checkmark" ng-value="choice.text" class="question-choice">{{choice.text}}</ion-radio>
         <div class="button-div">
-        <button type="submit" class="button button-positive app-button">Rösta!</button>
+        <button type="submit" class="button form-button app-button">Rösta</button>
         </div>
       </form>
       <h2>Resultat:</h2>
       <ul class="result-list">
         <li ng-repeat="choice in activeQuestion.choices" class="result-list-item">{{choice.text}} har {{choice.votes}} röster.</li>
       </ul>
-      <p ng-show="activeChoice" class="your-vote">Din röst: {{activeChoice}}.</p>
+      <p ng-show="activeChoice" class="your-vote"><span>Din röst:</span> {{activeChoice}}.</p>
    </ion-content>
  </div>
 </ion-view>

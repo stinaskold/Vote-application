@@ -18,6 +18,7 @@
 
     <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Economica:400,400i,700i" rel="stylesheet">
     <link href="css/ionic.app.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -59,12 +60,12 @@
     <ion-side-menu side="left">
       <ion-header-bar class="bar-dark">
        <h1 class="title">Frågor</h1>
-         <!-- New Task button-->
+         <!-- New question-item button-->
        <button class="button button-icon ion-plus" ng-click="openModal('question')">
        </button>
      </ion-header-bar>
      <ion-content>
-        <!-- our list and list items -->
+        <!-- Question list -->
         <ion-list>
           <ion-item ng-repeat="question in questions" ng-click="selectQuestion(question, $index)" ng-class="{active: activeQuestion == question}" class="question-item">
             {{question.title}}<i class="icon icon ion-chevron-right"></i>

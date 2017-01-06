@@ -17,23 +17,24 @@ $dark:                            #373737 !default;
 
 $base-background-color:           #2f2f2f !default;
 $base-color:                      #fff !default;
-
 $secondary-color:                 #c5c5c5;
+$identity-color-light:            #00e6a7;
+$identity-color-dark:             #00d299;
+$identity-color-darker:           #00be8b;
 
 $custom-dark-border:              #5f5f5f;
 $button-dark-border:              $base-background-color;
 
-// $bar-dark-bg:                     rgba($button-dark-bg, $bar-transparency) !default;
-// $bar-dark-text:                   $button-dark-text !default;
-// $bar-dark-border:                 $button-dark-border !default;
-// $bar-dark-active-bg:              $button-dark-active-bg !default;
-// $bar-dark-active-border:          $button-dark-active-border !default;
-//
 $item-default-bg:                 $base-background-color !default;
 $item-default-border:             $custom-dark-border !default;
 $item-default-text:               $secondary-color !default;
 $item-default-active-bg:          $dark !default;
 $item-default-active-border:      $custom-dark-border !default;
+
+$input-color:                     $light;
+
+$menu-bg:                         $base-background-color;
+$modal-bg-color:                  $base-background-color;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -41,12 +42,32 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-
 h2 {
-  font-size: 1.5em;
+  font-family: 'Economica', sans-serif;
+  font-size: 2.5em;
   padding: 10px;
   padding-top: 20px;
   padding-left: 5%;
+}
+
+h2.logo {
+  text-align: center;
+  padding-left: 0;
+  font-family: 'Economica', sans-serif;
+  font-size: 4em;
+  color: $identity-color-light;
+  margin-top: 20%;
+}
+.div-logo {
+  width: 100%;
+}
+.icon-logo {
+  text-align: center;
+  display: block;
+  min-height: 60px;
+  margin: 0 auto;
+  font-size: 5em;
+  color: $identity-color-light;
 }
 
 // Header-bar
@@ -64,9 +85,6 @@ h2 {
   position: absolute;
   right: 10px;
 }
-.item:first-child {
-  border-top: none;
-}
 
 // Buttons
 .app-button {
@@ -76,19 +94,76 @@ h2 {
   padding: 4px;
   display: block;
   background-color: transparent;
-  border: 2px solid #fff;
-  color: $light;
+  border: 2px solid $identity-color-light;
+  color: $secondary-color;
+  &:hover {
+    color: $stable;
+  }
 }
-.button.active, .button.activated {
-  background-color: #000;
+.app-button.active, .button.activated {
+  background-color: transparent;
+  border: 2px solid $identity-color-light;
+  color: $stable;
 }
 
-.question-choice {
-  //text-align: center;
-  //width: 80%;
-  //margin: 0 auto;
-  //margin-bottom: 10px;
+.start-buttons {
+  margin-top: 20%;
 }
+
+.form-button {
+  background-color: $identity-color-dark;
+  color: $light;
+  font-weight: bold;
+  border: none;
+}
+.form-button.active, .form-button.activated {
+  background-color: $identity-color-darker;
+  border: none;
+}
+
+.choice-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.add-choice-button, .remove-choice-button {
+  min-height: 10px;
+  padding: 0 2px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 146px;
+  border: 1px solid $custom-dark-border;
+  background-color: transparent;
+  color: $secondary-color;
+  &:hover {
+    color: $secondary-color;
+  }
+}
+.add-choice-button.active, .add-choice-button.activated, .remove-choice-button.active, .remove-choice-button.activated {
+  background-color: transparent;
+  border: 1px solid $secondary-color;
+  color: $secondary-color;
+}
+.add-choice-button .icon:before, .remove-choice-button .icon:before {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.edit-delete {
+  padding-left: 5%;
+  margin-top: -20px;
+}
+
+.edit, .delete {
+  font-size: 12px;
+  color: $secondary-color;
+  line-height: 20px;
+  min-height: 20px;
+  margin-right: 5px;
+}
+
+
+// Item radio
 .item-radio .item-content {
   padding: 16px;
   padding-left: 5%;
@@ -99,24 +174,40 @@ h2 {
 .item-radio input:checked + .radio-content .item-content {
   background-color: $dark;
 }
+ul.result-list {
+  margin-top: -10px;
+}
 .result-list-item {
   padding-left: 5%;
 }
 .your-vote {
   margin-top: 20px;
   padding-left: 5%;
+  span {
+    font-weight: bold;
+  }
 }
 
+// Input
+.item-input {
+  padding-left: 5%;
+}
+input.add-question {
+  font-size: 17px;
+  min-height: 50px;
+  vertical-align: top;
+}
 
-// Side menu
-// .item {
-//   background-color: $base-background-color;
-//   color: $secondary-color;
-//   border-color: #5f5f5f;
-// }
-// .item.active, .item.activated, .item-complex.active .item-content,
-// .item-complex.activated .item-content, .item .item-content.active,
-// .item .item-content.activated {
-//   background-color: $dark;
-//   border-color: #5f5f5f;
-// }
+.add-choice {
+  color: $light;
+}
+
+.bar .button.button-clear .icon:before {
+  font-size: 24px;
+  color: $secondary-color;
+}
+
+// Forms
+.form-choices {
+  margin-top: 10px;
+}

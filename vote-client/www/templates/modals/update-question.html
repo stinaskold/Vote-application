@@ -1,0 +1,32 @@
+<div class="modal">
+
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary bar-dark">
+    <h1 class="title">Redigera fråga</h1>
+    <button class="button button-clear button-dark-text" ng-click="closeModal('update')"><i class="icon icon ion-close"></i></button>
+  </ion-header-bar>
+
+  <!-- Modal content area -->
+  <ion-content>
+
+    <form ng-submit="updateQuestion(currentQuestion)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" ng-model="currentQuestion.title" class="add-question">
+        </label>
+        <label class="item item-input" ng-repeat="choice in currentQuestion.choices track by $index">
+          <input type="text" placeholder="{{choice.text}}" ng-model="currentQuestion.choices[$index].text" class="add-choice">
+        </label>
+        <div class="button-div choice-buttons">
+          <button type="button" class="button add-choice-button" ng-click="addChoice(currentQuestion.choices, 'update')">Lägg till alternativ <i class="icon icon ion-plus"></i></button>
+          <button type="button" class="button remove-choice-button" ng-click="removeChoice(currentQuestion.choices)">Ta bort alternativ <i class="icon icon ion-minus"></i></button>
+        </div>
+      </div>
+      <div class="button-div">
+        <button type="submit" class="button form-button app-button">Spara</button>
+      </div>
+    </form>
+
+  </ion-content>
+
+</div>

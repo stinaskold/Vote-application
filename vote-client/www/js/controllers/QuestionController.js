@@ -1,7 +1,5 @@
 app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, request, $ionicSideMenuDelegate) {
 
-  //$scope.newChoices = [];
-
   // Object to store data from form
   $scope.formData = {};
 
@@ -23,26 +21,6 @@ app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, requ
     if (array.length > 2)
       array.pop();
   }
-
-
-
-
-  //GET QUESTIONS WITH ROUTER:
-
-  // Get questions from database
-  // request.getQuestions(function(response) {
-  //   $scope.questions = response.data.question;
-  // });
-
-
-
-
-  // Save questions to database
-  // $scope.saveQuestion = function(question) {
-  //   request.updateQuestion(question);
-  //   console.log('Question saved');
-  // };
-
 
   // Create and load the New Question Modal
   $ionicModal.fromTemplateUrl('../templates/modals/new-question.html',
@@ -104,19 +82,9 @@ $scope.closeModal = function(id) {
     }
     console.log(choicesArray);
     question.choices = choicesArray;
-    // for (var i = 0; i < question.choices.length; i++) {
-    //   console.log(question.choices[i].text);
-    // }
-    //console.log('choices är ' + question.choices[2].votes);
-    // request.updateQuestion(question);
-    // $scope.questions.push({
-    //   title: question.title
-    // });
     console.log('Här kommer en ny fråga');
-    //question.title = "";
-    //question.choices = {};
+
     $scope.questionModal.hide();
-    //$scope.openModal();
 
     // Send data to backend
     socket.emit('new-question', question);
@@ -126,15 +94,7 @@ $scope.closeModal = function(id) {
   $scope.updateQuestion = function(question) {
     console.log('alternativen är: ')
     console.log(question.choices);
-    // var choicesArray = [];
-    // for (var i in question.choices) {
-    //   var choicesObj = {text : question.choices[i].text, votes: question.choices[i].votes};
-    //   console.log(choicesObj);
-    //   choicesArray.push(choicesObj);
-    // }
-    // console.log(choicesArray);
-    // question.choices = choicesArray;
-    //request.updateQuestion(question);
+
     $scope.updateModal.hide();
 
     // Send data to backend
@@ -148,29 +108,6 @@ $scope.closeModal = function(id) {
     // Send data to backend
     socket.emit('deleted-question', question);
   };
-
-  // // Open new question modal
-  // $scope.newQuestion = function() {
-  //   for(var i=0; i < 2; i++) {
-  //     $scope.addChoice();
-  //   }
-  //   $scope.questionModal.show();
-  // };
-  //
-  // // Open new vote modal
-  // $scope.newVote = function() {
-  //   $scope.voteModal.show();
-  // };
-  //
-  // // Close the new task modal
-  // $scope.closeNewQuestion = function() {
-  //   $scope.questionModal.hide();
-  // };
-  //
-  // // Close the new task modal
-  // $scope.closeNewVote = function() {
-  //   $scope.voteModal.hide();
-  // };
 
   // Show side menu with questions
   $scope.toggleQuestions = function() {
@@ -209,26 +146,12 @@ socket.on('vote-updated', function (updatedQuestion) {
 // When new question is added, push it into the questions array
 socket.on('question-added', function (newQuestion) {
   console.log('Den nya frågan är: ' + newQuestion);
-  console.log(newQuestion);
   $scope.questions.push(newQuestion);
 });
 
-// When question is updated, show message
+// When question is updated, log to console
 socket.on('question-updated', function (updatedQuestion) {
   console.log('Den uppdaterade frågan är:' + updatedQuestion);
-  console.log('alternativen till den uppdaterade frågan är ');
-  console.log(updatedQuestion.choices);
-  // for (var i=0;i<$scope.questions.length;i++) {
-  //   console.log($scope.questions[i].title);
-  //   if ($scope.questions[i]._id == updatedQuestion._id ) {
-  //     console.log('Se nu innan');
-  //     console.log($scope.questions[i]);
-  //     $scope.questions[i] = updatedQuestion;
-  //     // $scope.questions.splice(i,1,updatedQuestion);
-  //     console.log('Se nu efter');
-  //     console.log($scope.questions[i]);
-  //   }
-  // }
 });
 
 // When question is deleted, remove it from the questions array
@@ -243,18 +166,6 @@ socket.on('question-deleted', function (deletedQuestion) {
   window.location = '/';
 });
 
-
-// socket.on('question-added', function(question) {
-//   $scope.questions.push(question);
-// });
-
-  // socket.on('test', function (socket) {
-  //   console.log('test client');
-  // });
-
-
-
-
  // Function to update vote, called when 'vote' is clicked
  $scope.vote =function(chosenChoice, question) {
     console.log(chosenChoice);
@@ -268,10 +179,6 @@ socket.on('question-deleted', function (deletedQuestion) {
         socket.emit('vote', question, question.choices[i]);
       }
     }
-    //socket.emit('vote', chosenChoice);
-    //alert('Hoppla');
   }
-
-
 
 })

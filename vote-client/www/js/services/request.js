@@ -8,9 +8,6 @@ app.service('request', function($http) {
   this.updateQuestion = function(question) {
     if(!question._id) {
       $http.post('/api/question', question).then(function() {
-      //question.title = "";
-      //question.choices = {};
-      //window.location = '/';
       });
     } else {
       $http.put('/api/question/' + question._id, question).then(function(result) {

@@ -30,12 +30,7 @@ var app = angular.module('vote-app', ['ionic','btford.socket-io'])
      .state('vote', {
        url: "/",
        templateUrl: "templates/vote.html"
-     })
-     .state('question', {
-       url: "/question",
-       templateUrl: "templates/question.html"
      });
-
      // if none of the above states are matched, use this as the fallback
      $urlRouterProvider.otherwise('/');
 })

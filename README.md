@@ -7,4 +7,5 @@ Instruktioner för att installera och köra appen:
 - Starta MongoDB
 - Gå till "vote-app"-katalogen i ett terminalfönster, därefter kör "npm install".
 - När installationen är klar, skriv "cd vote-client", därefter "npm install".
+- Skriv "cd ..", därefter "node app.js".
 - Gå in på http://localhost:3000 i webbläsaren. Använd Chrome, gå in på "inspektera" och välj mobilvy ("device toolbar").

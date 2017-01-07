@@ -1,4 +1,4 @@
-app.controller('QuestionCtrl', function($scope, $http, $ionicModal, socket, request, $ionicSideMenuDelegate) {
+app.controller('QuestionCtrl', function($scope, $ionicModal, socket, $ionicSideMenuDelegate) {
 
   // Object to store data from form
   $scope.formData = {};
@@ -103,8 +103,6 @@ $scope.closeModal = function(id) {
 
   $scope.deleteQuestion = function(question) {
     console.log(question)
-    request.deleteQuestion(question);
-
     // Send data to backend
     socket.emit('deleted-question', question);
   };
@@ -122,14 +120,20 @@ $scope.closeModal = function(id) {
     $ionicSideMenuDelegate.toggleLeft(false);
   };
 
+
 // When connected to socket, log message to the console
 socket.on('message', function (message) {
   console.log('The server has a message for you: ' + message);
 });
 
+// When connected to socket, get questions
+socket.on('connect', function () {
+  // Get questions from backend
+  socket.emit('get-questions');
+});
+
 // When we get the questions from the database, assign the result to the questions array
 socket.on('read-questions', function (result) {
-  console.log(result);
   $scope.questions = result;
 });
 
@@ -149,9 +153,15 @@ socket.on('question-added', function (newQuestion) {
   $scope.questions.push(newQuestion);
 });
 
-// When question is updated, log to console
+// When question is updated, replace the old question with the updated question
 socket.on('question-updated', function (updatedQuestion) {
   console.log('Den uppdaterade frågan är:' + updatedQuestion);
+  for (var i=0;i<$scope.questions.length;i++) {
+    if ($scope.questions[i]._id == updatedQuestion._id ) {
+    $scope.questions[i] = updatedQuestion;
+    $scope.questions.splice(i,1,updatedQuestion);
+    }
+  }
 });
 
 // When question is deleted, remove it from the questions array

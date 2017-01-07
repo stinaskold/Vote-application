@@ -3,27 +3,27 @@ var express = require('express'),
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var parser = require('body-parser');
-var router = require('./api');
 var Question = require('./models/question');
 
 require('./database');
 
 app.use('/', express.static('vote-client/www'));
 app.use(parser.json());
-app.use('/api', router);
 
 
 // Function to be executed when socket is connected
 io.on('connection', function (socket) {
 
-  // Get questions on connection
-  Question.find({}, function(err, result) {
-    if (err) {
-      return err;
-    }
-    //Send result to frontend
-    io.emit('read-questions', result);
-    console.log('Frågorna har hämtats');
+  // Function to be executed when 'get-questions' is sent from frontend
+  socket.on('get-questions', function () {
+    Question.find({}, function(err, result) {
+      if (err) {
+        return err;
+      }
+      //Send result to frontend
+      io.emit('read-questions', result);
+      console.log('Frågorna har hämtats');
+    });
   });
 
   socket.emit('message', 'You are connected!');

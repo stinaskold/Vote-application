@@ -1,6 +1,6 @@
 app.factory('socket',function(socketFactory){
     //Create socket and connect
-    var myIoSocket = io.connect('http://mattias.privatedns.org/');
+    var myIoSocket = io.connect('http://localhost:3000');
 
     mySocket = socketFactory({
         ioSocket: myIoSocket

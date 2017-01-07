@@ -1,4 +1,5 @@
-En app byggd av Stina Sköld, examensarbete för YH-utbildningen Javascriptutvecklare – Frontend.
+Examensarbete för YH-utbildningen Javascriptutvecklare – Frontend.
+Stina Sköld, 2016.
 
 I appen kan du skapa egna voteringar, redigera och ta bort voteringar, samt rösta i realtid.
 
